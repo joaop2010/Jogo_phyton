@@ -1,3 +1,5 @@
+import random
+
 print('--- Iniciar jogo ---')
 print('--- Você acorda na entrada de uma caverna escura ---')
 nome = input('--- Qual é o seu nome? --- ')
@@ -20,10 +22,9 @@ vida_player = 120
 dano_player = 25
 vida_monstro1 = 60
 dano_monstro1 = 15
-vida_drag = 250
-dano_drag1 = 55 
-dano_drag2 = 35
-sequela_monstro = 20
+vida_drag = 200
+dano_drag1 = 40
+sequela_monstro = 10
     
 print('\n---  ⚠️  ALERTA! ALERTA! ALERTA!  ⚠️  ---')
 print('--- Um monstro apareceu e está se aproximando! Prepare-se! ---')
@@ -51,7 +52,8 @@ while vida_player > 0 and vida_monstro1 > 0:
         print('\n--- Você foi derrotado pelo monstro! ---')
         break
 sequela = 5
-
+vida_player += 15
+dano_player += 10
 vida_player -= sequela
 print(f'\n--- Você sofreu uma sequela de {sequela} pontos de vida por conta da batalha. Vida restante: {vida_player} ---')
 
@@ -60,11 +62,11 @@ print('--- O mago lhe oferece duas poções misteriosas. Qual você escolhe? (po
 escolha_pocao = input('--- Você escolhe a poção vermelha ou a poção azul? --- ')
 
 if escolha_pocao == '1':
-    vida_player += 50
-    print('\n--- Você bebeu a poção vermelha e recuperou 50 pontos de vida! ---')
+    vida_player += 70
+    print('\n--- Você bebeu a poção vermelha e recuperou 70 pontos de vida! ---')
 elif escolha_pocao == '2':
-    dano_player += 20
-    print('\n--- Você bebeu a poção azul e aumentou seu dano em 20 pontos! ---')
+    dano_player += 30
+    print('\n--- Você bebeu a poção azul e aumentou seu dano em 30 pontos! ---')
 else:
     print('Opção inválida. Você não bebeu nenhuma poção. ---')
 
@@ -79,34 +81,75 @@ while vida_player > 0 and vida_drag > 0:
 
     if acao_dragao == 'atacar':
         vida_drag -= dano_player
-        vida_player -= dano_drag1 - 30
+        vida_player -= dano_drag1 - 15
         print(f'\n--- Você atacou o dragão e causou {dano_player} de dano! ---')
     elif acao_dragao == 'defender':
-        vida_player -= dano_drag1 - 35
-        print('\n--- Você se defendeu e perdeu 45 de vida! ---')
+        print("Você se defendeu! O dragão está escolhendo o ataque...")
+
+        ataque_sorteado = random.choice(['fogo', 'garras', 'cauda'])
+        print(f'O dragão usou {ataque_sorteado}!')
+
+        if ataque_sorteado == 'fogo':
+            dano_drag1 = 40
+        elif ataque_sorteado == 'garras':
+            dano_drag1 = 30
+        elif ataque_sorteado == 'cauda':
+            dano_drag1 = 25
+        vida_player -= dano_drag1 - 25
+        print('\n--- Você se defendeu e perdeu 15 de vida! ---')
     else:
         print('\n--- Opção inválida. Por favor, escolha "atacar" ou "defender". ---')
 
-print(f'Você sofreu um combo surpresa do dragão e perdeu {dano_drag1 - 30} de vida! ---')
-vida_player -= dano_drag1 - 30
-
 if vida_drag <= 0:
-    print('\n--- Parabéns! Você derrotou o dragão! ---')
-elif vida_player <= 0:
-    print('\n--- Você foi derrotado pelo dragão! ---')
+    print(f'\n--- Parabéns, {nome}! Você derrotou o dragão! ---')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠢⠈⠨⠐⠅⠂⠆⡐⠄⠤⠠⠄⠄⠄⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠅⠠⢀⠂⡂⠁⠅⢈⠀⠀⡀⠀⠀⢨⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⠠⠄⡠⠅⣈⠀⠀⠀⠀⢀⢔⠀⠂⠁⠀⠐⡀⠈⢄⣀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠠⠀⠀⠨⢀⠄⠊⠀⠀⠑⢄⢀⠐⠡⠂⠀⠀⡠⡡⠉⠈⠄⠈⠄⢠⠁⠀⠀⠀⠀⠀⠀⠀⡀⠂⡨⢀⠄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡖⠄⡀⡀⣅⡀⠬⠔⠊⠀⢀⠀⠀⠀⠄⠀⠢⠨⠄⣀⠀⠐⡐⢀⠀⡀⢀⠀⠀⠑⢄⠒⠈⡂⠀⠀⠀⠀⠎⠀⡒⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠠⢀⠠⠑⠐⠈⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠘⡀⠀⠀⠀⠀⠁⠑⢠⠁⠀⠀⠁⠁⠑⠠⡀⠑⠄⣂⢀⠄⢑⠈⢂⠀⠈⠄⠃⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⡄⠂⠁⠀⢀⢀⢀⠀⢀⠆⠢⡀⠀⠨⠀⠀⠀⢠⠁⠀⢀⠄⠀⠀⠀⢈⠀⠀⡐⡀⠀⠀⠀⠀⠀⠀⠀⠑⠤⢀⠂⠌⠀⠈⠀⢀⠤⠌⠢⢀⢀⠀⠀⠠⢀⠰⠠⠀')
+    print('⠀⠀⡀⠄⠒⠐⠐⠐⠐⠀⠁⠁⠀⡀⠔⠈⡂⠂⠁⠂⠁⠀⠀⠈⠁⠁⠀⠀⠀⢌⠀⡌⡂⢑⠀⠀⢀⠂⡀⠔⠀⠀⠑⢐⢀⠠⠠⠄⠄⡀⠀⢠⠁⠀⠀⠄⠀⠀⠀⢀⣀⣀⠀⠠⠈⠈⠀⠁⠡⠀')
+    print('⠀⠂⠄⠂⠑⠈⠂⠃⠂⠂⠐⠈⠈⠀⠀⠀⡊⡂⠅⠄⠂⠂⠁⠁⠂⠂⠂⠄⠜⠠⠠⠡⡨⠐⠈⠐⠀⢰⠐⠐⠐⢈⡈⡠⠐⠈⠈⠁⠊⠄⠅⠌⢆⠀⠀⠈⠉⡉⡡⠡⠐⠄⢌⢉⠢⠂⠆⠔⠈⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠉⠈⠁⠁⠈⠈⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠑⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+elif vida_player <= 0:  
+    print(f'\n--- Você {nome} foi derrotado pelo dragão! ---')
 
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢀⢺⠅⠀⠀⠀⠀⠀⠀⢀⢀⣀⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠅⠀⠀⠀⠀⢀⢰⣾⠾⢛⠳⢷⠔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⡀⢀⢀⠠⣿⢅⢀⢀⠀⡀⢐⡿⣡⣞⣧⣭⣷⣧⡆⡤⡂⡠⣠⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠱⠗⠚⠚⢿⣷⣿⠛⠒⠓⠷⠐⣿⡿⣾⣵⣿⣿⣿⣯⢟⣴⣿⡿⣧⡠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀⠀⠀⠀⠹⣿⣿⣽⣿⣿⣿⣱⢟⠉⡂⢅⢋⡿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢺⡿⣿⠀⠀⠀⠀⠀⠀⠙⠺⢿⣿⣿⢿⣯⣆⡶⠾⢮⣯⣾⣯⣻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣋⣾⣿⡷⢭⣯⣿⣾⣿⣿⣻⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿⣷⣥⢀⠀⠀⠀⠀⠀⠀⠠⣼⣿⠫⠿⣿⣾⣿⣿⣿⣿⣿⣿⣯⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣷⣕⢢⠠⣠⣰⣄⣽⣿⣃⢽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠙⠙⠿⣿⣿⣿⣿⣿⣿⢿⢩⡩⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⡯⣿⠀⠀⠀⠈⠻⡿⢿⣿⣯⣾⣿⣿⣿⣋⣌⣻⣿⣿⣿⣿⣿⣯⣷⣶⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣯⣗⠀⠀⠀⠀⠀⠐⣮⢨⡩⣿⣿⣿⣿⣿⣞⣿⣿⣿⣿⣿⣿⣿⣿⣾⣽⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⡗⠀⠀⠀⠀⠀⠀⣿⣿⣿⡞⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀⠀⠀⠀⠹⣿⣟⣽⣿⣿⣟⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⡆⠀⢐⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠨⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⡇⠀⡐⣿⣿⣿⣿⣿⣿⣿⣿⡣⡋⠃⠛⠃⠀⡀⢄⢢⣢⣢⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣯⠀⢸⡟⣿⣿⣿⣿⣿⡗⣿⢘⠠⡠⡠⣦⣵⣮⣷⣿⣿⣿⠄⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣬⣭⢿⣿⣄⠈⡀⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⠇⠀⠀⠀⠀⠀⠀⡀⣀⢢⣃⣝⣿⣿⣿⣿⡔⣾⣽⣽⣿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠉⠈⠉⢻⣿⣿⡇⠀⠀⠀')
+    print('⢀⠠⣠⣠⣀⣀⣠⣠⣤⣽⣤⣦⣴⣴⣤⣦⣲⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣿⣿⣿⣿⣿⣿⣿⣯⣧⣦⣦⣴⣴⣤⣦⣨⣾⣿⣟⣠⣠⣀⢀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠁⠉⠈⠉⠈⠁⠉⠈⠁⠁⠉⠈⠁⠁⠁⠉⠈⠈⠈⠁⠁⠁⠉⠈⠈⠀⠀⠀⠀⠀⠀')
+elif vida_player <= 0 and vida_drag <= 0:
+    print(f'\n--- Você {nome} e o dragão caíram em batalha! ---')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠢⠈⠨⠐⠅⠂⠆⡐⠄⠤⠠⠄⠄⠄⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠅⠠⢀⠂⡂⠁⠅⢈⠀⠀⡀⠀⠀⢨⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⠠⠄⡠⠅⣈⠀⠀⠀⠀⢀⢔⠀⠂⠁⠀⠐⡀⠈⢄⣀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠠⠀⠀⠨⢀⠄⠊⠀⠀⠑⢄⢀⠐⠡⠂⠀⠀⡠⡡⠉⠈⠄⠈⠄⢠⠁⠀⠀⠀⠀⠀⠀⠀⡀⠂⡨⢀⠄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡖⠄⡀⡀⣅⡀⠬⠔⠊⠀⢀⠀⠀⠀⠄⠀⠢⠨⠄⣀⠀⠐⡐⢀⠀⡀⢀⠀⠀⠑⢄⠒⠈⡂⠀⠀⠀⠀⠎⠀⡒⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠠⢀⠠⠑⠐⠈⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠘⡀⠀⠀⠀⠀⠁⠑⢠⠁⠀⠀⠁⠁⠑⠠⡀⠑⠄⣂⢀⠄⢑⠈⢂⠀⠈⠄⠃⠢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⡄⠂⠁⠀⢀⢀⢀⠀⢀⠆⠢⡀⠀⠨⠀⠀⠀⢠⠁⠀⢀⠄⠀⠀⠀⢈⠀⠀⡐⡀⠀⠀⠀⠀⠀⠀⠀⠑⠤⢀⠂⠌⠀⠈⠀⢀⠤⠌⠢⢀⢀⠀⠀⠠⢀⠰⠠⠀')
+    print('⠀⠀⡀⠄⠒⠐⠐⠐⠐⠀⠁⠁⠀⡀⠔⠈⡂⠂⠁⠂⠁⠀⠀⠈⠁⠁⠀⠀⠀⢌⠀⡌⡂⢑⠀⠀⢀⠂⡀⠔⠀⠀⠑⢐⢀⠠⠠⠄⠄⡀⠀⢠⠁⠀⠀⠄⠀⠀⠀⢀⣀⣀⠀⠠⠈⠈⠀⠁⠡⠀')
+    print('⠀⠂⠄⠂⠑⠈⠂⠃⠂⠂⠐⠈⠈⠀⠀⠀⡊⡂⠅⠄⠂⠂⠁⠁⠂⠂⠂⠄⠜⠠⠠⠡⡨⠐⠈⠐⠀⢰⠐⠐⠐⢈⡈⡠⠐⠈⠈⠁⠊⠄⠅⠌⢆⠀⠀⠈⠉⡉⡡⠡⠐⠄⢌⢉⠢⠂⠆⠔⠈⠀')
+    print('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠉⠈⠁⠁⠈⠈⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠑⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀')
