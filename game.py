@@ -1,9 +1,12 @@
 import random
 
+print('--- Bem-vindo ao jogo... A LENDA DO HERÓI! ---')
+print('')
 print('--- Iniciar jogo ---')
+print('')
 print('--- Você acorda na entrada de uma caverna escura ---')
 nome = input('--- Qual é o seu nome? --- ')
-
+print('')
 while True:
     print(f'\n--- {nome}, você vê uma bifurcação na caverna. Para onde você quer ir? (esquerda/direita) ---')
     escolha = input('--- Digite "esquerda" ou "direita": --- ').lower()
@@ -16,7 +19,7 @@ while True:
     
     else:
         print('--- Opção inválida. Por favor, escolha "esquerda" ou "direita". ---')
-
+print('')
 print('--- Você saiu em segurança ---')
 vida_player = 120
 dano_player = 25
@@ -25,10 +28,10 @@ dano_monstro1 = 15
 vida_drag = 200
 dano_drag1 = 40
 sequela_monstro = 10
-    
+print('')    
 print('\n---  ⚠️  ALERTA! ALERTA! ALERTA!  ⚠️  ---')
 print('--- Um monstro apareceu e está se aproximando! Prepare-se! ---')
-
+print('')
 while vida_player > 0 and vida_monstro1 > 0:
     print(f'--- Sua vida: {vida_player} | Vida do monstro: {vida_monstro1} ---')
     acao = input('--- O que você quer fazer? (atacar/defender) --- ')
@@ -58,6 +61,7 @@ vida_player -= sequela
 print(f'\n--- Você sofreu uma sequela de {sequela} pontos de vida por conta da batalha. Vida restante: {vida_player} ---')
 
 print('\n--- Você continua sua jornada e encontra um mago misterioso! ---')
+print('')
 print('--- O mago lhe oferece duas poções misteriosas. Qual você escolhe? (poção vermelha(1)/poção azul(2)) ---')
 escolha_pocao = input('--- Você escolhe a poção vermelha ou a poção azul? --- ')
 
@@ -80,21 +84,21 @@ while vida_player > 0 and vida_drag > 0:
     acao_dragao = input('--- O que você quer fazer? (atacar/defender) --- ')
 
     if acao_dragao == 'atacar':
+        ataque_sorteado = random.choice(['fogo', 'garras', 'cauda'])
+        print(f'O dragão usou {ataque_sorteado}!')
+            
+        if ataque_sorteado == 'fogo':
+                dano_drag1 = 40
+        elif ataque_sorteado == 'garras':
+                dano_drag1 = 30
+        elif ataque_sorteado == 'cauda':
+                dano_drag1 = 25
         vida_drag -= dano_player
         vida_player -= dano_drag1 - 15
         print(f'\n--- Você atacou o dragão e causou {dano_player} de dano! ---')
     elif acao_dragao == 'defender':
         print("Você se defendeu! O dragão está escolhendo o ataque...")
 
-        ataque_sorteado = random.choice(['fogo', 'garras', 'cauda'])
-        print(f'O dragão usou {ataque_sorteado}!')
-
-        if ataque_sorteado == 'fogo':
-            dano_drag1 = 40
-        elif ataque_sorteado == 'garras':
-            dano_drag1 = 30
-        elif ataque_sorteado == 'cauda':
-            dano_drag1 = 25
         vida_player -= dano_drag1 - 25
         print('\n--- Você se defendeu e perdeu 15 de vida! ---')
     else:
